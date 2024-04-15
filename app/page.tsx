@@ -9,37 +9,59 @@ import { CardData } from "./components/card/Card";
 export default function Home() {
   const [cards, setCards] = useState<CardData[]>([]);
 
-  function addToCards(newCard: CardData): void {
-    newCard.id = uuidv4();
-    setCards(prevCards => [...prevCards, newCard]);
-    console.log('newCard: ', newCard);
-    console.log('cards: ', cards);
-
-    const allInputFields = document.querySelectorAll('input')
-    allInputFields.forEach(input => input.value = '')
-  }
-
-  function saveToLocalStorage(): void {
-    localStorage.setItem('cards', JSON.stringify(cards))
-  }
-
-
   useEffect(() => {
-    if (!cards.length) {
-      // const storedCards = JSON.parse(localStorage.getItem("storedCards"));
+    if (localStorage.getItem("storedCards")) {
+      setCards(JSON.parse(localStorage.getItem("storedCards")!));
+      console.log(
+        "localStorage:",
+        JSON.parse(localStorage.getItem("storedCards")!)
+      );
+    } else {
+      console.log("No cards stored.");
     }
   }, []);
+
+  function addToCards(newCard: CardData): void {
+    newCard.id = uuidv4();
+    setCards((prevCards) => {
+      localStorage.setItem(
+        "storedCards",
+        JSON.stringify([...prevCards, newCard])
+      );
+      return [...prevCards, newCard];
+    });
+    console.log("newCard: ", newCard);
+    console.log("cards: ", cards);
+
+    const allInputFields = document.querySelectorAll("input");
+    allInputFields.forEach((input) => (input.value = ""));
+  }
+
+  function removeCard(cardToRemove: CardData): void {
+    const cardsFiltrados = cards.filter((card) => card.id !== cardToRemove.id);
+    console.log("card deletado");
+    localStorage.setItem("storedCards", JSON.stringify([...cardsFiltrados]));
+    setCards(cardsFiltrados);
+  }
+
+  function deleteAllCards(): void {
+    const question = confirm("Tem certeza de que quer deletar todo o deck?");
+    question && setCards([]);
+    localStorage.removeItem("storedCards");
+  }
 
   return (
     <>
       <Header />
-      <CreateCardForm
-        handleSubmit={addToCards}
-      />
-      {cards.map((card) => (
-        <Card key={card.pergunta} card={card} />
-      ))}
-      <button type='button'>Salvar</button>
+      <CreateCardForm handleSubmit={addToCards} />
+      <div id="cards-container">
+        {cards.map((card) => (
+          <Card key={card.id} card={card} handleDelete={removeCard} />
+        ))}
+      </div>
+      <button type="button" onClick={deleteAllCards}>
+        DELETAR DECK
+      </button>
     </>
   );
 }
