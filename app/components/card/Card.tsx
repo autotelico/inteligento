@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import '../../globals.css'
+import '../../styles/globals.css'
 
 export interface CardData {
     id: string;

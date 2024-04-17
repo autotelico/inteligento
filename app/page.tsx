@@ -1,26 +1,45 @@
 "use client";
 import { useState, useEffect, use } from "react";
 import { v4 as uuidv4 } from "uuid"; // entender porque o id não atualiza
-import Header from "./components/Header";
-import CreateCardForm from "./components/card/CreateCardForm";
 import Card from "./components/card/Card";
 import { CardData } from "./components/card/Card";
+import ProjectList, { Project } from "./components/project/ProjectList";
 
 export default function Home() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
 
   useEffect(() => {
-    if (localStorage.getItem("storedCards")) {
-      setCards(JSON.parse(localStorage.getItem("storedCards")!));
-      console.log(
-        "localStorage:",
-        JSON.parse(localStorage.getItem("storedCards")!)
+    // Get project ids form localStorage to reference cards
+    // to list out
+    if (localStorage.getItem("storedProjects")) {
+      const storedProjects = JSON.parse(
+        localStorage.getItem("storedProjects")!
       );
+      setProjects(storedProjects);
+      console.log("storedProjects: ", storedProjects);
+    } else {
+      console.log("No projects stored.");
+    }
+
+    // Get cards from localStorage
+    if (localStorage.getItem("storedCards")) {
+      const storedCards = JSON.parse(localStorage.getItem("storedCards")!);
+      setCards(storedCards);
+      console.log("storedCards:", storedCards);
     } else {
       console.log("No cards stored.");
     }
   }, []);
 
+  // Project-related functions
+  const addNewProject = (newProject: Project): void => {
+    const newProjectList = [...projects, newProject]
+    setProjects(newProjectList)
+    localStorage.setItem('storedProjects', JSON.stringify(newProjectList))
+  }
+
+  // Card-related functions
   function addToCards(newCard: CardData): void {
     newCard.id = uuidv4();
     setCards((prevCards) => {
@@ -45,22 +64,31 @@ export default function Home() {
   }
 
   function deleteAllCards(): void {
-    const question = confirm("Tem certeza de que quer deletar todo o deck?");
-    question && setCards([]);
-    localStorage.removeItem("storedCards");
+    if (localStorage.getItem("storedCards")) {
+      const question = confirm(
+        "Tem certeza de que quer deletar todo o deck? \nISSO IRÁ DELETAR TODAS AS SUAS CARTAS."
+      );
+      if (question) {
+        setCards([]);
+        localStorage.removeItem("storedCards");
+      }
+    } else {
+      alert("Não há cartas para deletar.");
+    }
   }
 
   return (
     <>
-      <Header />
-      <CreateCardForm handleSubmit={addToCards} />
+      <div id="projects-container">
+        <ProjectList projects={projects} cards={cards} createNewProject={addNewProject} />
+      </div>
       <div id="cards-container">
         {cards.map((card) => (
           <Card key={card.id} card={card} handleDelete={removeCard} />
         ))}
       </div>
       <button type="button" onClick={deleteAllCards}>
-        DELETAR DECK
+        DELETAR TUDO
       </button>
     </>
   );
