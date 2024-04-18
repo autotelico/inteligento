@@ -8,6 +8,7 @@ import Link from "next/link";
 export interface Project {
   id: string;
   name: string;
+  cards: CardData[];
 }
 
 export default function ProjectList({
@@ -20,13 +21,6 @@ export default function ProjectList({
   createNewProject: any;
 }): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
-
-  const listProjectCards = (selectedProject: Project): void => {
-    const projectCards = cards.filter((card) => card.id === selectedProject.id);
-    projectCards.map((projectCard) => {
-      <Card card={projectCard} handleDelete={"a"} />;
-    });
-  };
 
   const toggleShowModal = (): void => {
     setShowModal(!showModal);
@@ -47,7 +41,6 @@ export default function ProjectList({
           <div
             key={project.id}
             className="project"
-            onClick={() => listProjectCards(project)}
           >
             <Link
               href={{
@@ -57,10 +50,11 @@ export default function ProjectList({
             >
               {project.name}
             </Link>
+            <button>Delete Project (need to add function)</button>
           </div>
         );
       })}
-      <button onClick={toggleShowModal}>Criar Novo Projeto</button>
+      <button onClick={toggleShowModal}>{showModal ? 'Cancelar' : 'Criar Novo Projeto'}</button>
     </>
   );
 }

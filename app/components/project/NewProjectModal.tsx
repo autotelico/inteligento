@@ -1,27 +1,33 @@
-'use client'
-import {useState} from 'react'
+"use client";
+import { useState } from "react";
 import closeModalIcon from "../../../public/close-modal.svg";
-import { Project } from './ProjectList';
-import {v4 as uuidv4 } from 'uuid'
+import { Project } from "./ProjectList";
+import { v4 as uuidv4 } from "uuid";
 
 export default function NewProjectModal({
   handleShow,
   handleClick,
 }: {
-  handleShow: any,
-  handleClick: any,
+  handleShow: any;
+  handleClick: any;
 }): JSX.Element {
-  const [newProject, setNewProject] = useState<Project>({id: '', name: ''})
+  const [newProject, setNewProject] = useState<Project>({
+    id: "",
+    name: "",
+    cards: [],
+  });
 
   const createNewProject = (): void => {
-    const projectName: string = document.querySelector<HTMLInputElement>('#project-name')!.value
-    const myProject = {
+    const projectName: string =
+      document.querySelector<HTMLInputElement>("#project-name")!.value;
+    const myProject: Project = {
       id: uuidv4(),
       name: projectName,
-    }
-    setNewProject(myProject)
-    handleClick(myProject)
-  }
+      cards: [],
+    };
+    setNewProject(myProject);
+    handleClick(myProject);
+  };
 
   return (
     <div id="new-project-modal">
@@ -34,7 +40,9 @@ export default function NewProjectModal({
       />
       <label htmlFor="project-name">Nome do projeto:</label>
       <input type="text" id="project-name" placeholder="Exemplo: Anatomia" />
-      <button type="button" onClick={createNewProject}>Criar Projeto</button>
+      <button type="button" onClick={createNewProject}>
+        Criar Projeto
+      </button>
     </div>
   );
 }
