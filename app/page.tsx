@@ -33,11 +33,21 @@ export default function Home() {
   }, []);
 
   // Project-related functions
+  const updateLocalStorage = (projArray: Project[]): void => {
+    localStorage.setItem('storedProjects', JSON.stringify(projArray))
+  }
+
   const addNewProject = (newProject: Project): void => {
     const newProjectList = [...projects, newProject];
     setProjects(newProjectList);
     addToLocalStorage(newProject)
   };
+
+  const removeProject = (projectToDelete: Project): void => {
+    const filteredProjects = projects.filter(project => project.id !== projectToDelete.id)
+    setProjects(filteredProjects)
+    updateLocalStorage([...filteredProjects]) 
+  }
 
   // I'll probably remove this
 
@@ -101,6 +111,7 @@ export default function Home() {
           projects={projects}
           cards={cards}
           createNewProject={addNewProject}
+          handleDelete={removeProject}
         />
       </div>
       <button type="button" onClick={deleteAllCards}>

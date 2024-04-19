@@ -15,10 +15,12 @@ export default function ProjectList({
   projects,
   cards,
   createNewProject,
+  handleDelete,
 }: {
   projects: Project[];
   cards: CardData[];
   createNewProject: any;
+  handleDelete: any;
 }): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -50,7 +52,7 @@ export default function ProjectList({
             >
               {project.name}
             </Link>
-            <button>Delete Project (need to add function)</button>
+            <button onClick={() => handleDelete(project)}>Delete Project</button>
           </div>
         );
       })}
