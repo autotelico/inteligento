@@ -7,10 +7,18 @@ import Header from "./components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://inteligento.vercel.app/'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'pt-BR': '/pt-BR',
+      'en-US': '/en-US',
+    }
+  },
   title: "Inteligento",
   description: "Flashcards para estudos. By: Henrique Heron",
   openGraph: {
-    images: '/favicon.ico',
+    images: '/study-icon.png',
   }
 };
 
@@ -20,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={inter.className}>
         <Header />
         <div id="main-container">{children}</div>
