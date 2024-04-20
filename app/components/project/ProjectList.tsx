@@ -23,10 +23,6 @@ export default function ProjectList({
   handleDelete: any;
 }): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
-
-  const toggleBlur = (): void => {
-    document.querySelector('#blur')?.classList.toggle('hidden')
-  }
   
   const toggleShowModal = (): void => {
     setShowModal(!showModal);
@@ -35,7 +31,7 @@ export default function ProjectList({
 
   return (
     <div id="project-container">
-      <div id="blur" className="hidden"></div>
+      <div className="blur hidden"></div>
       {/* placeholder */}
       <h2>Project List</h2>
       {showModal && (
@@ -68,4 +64,8 @@ export default function ProjectList({
       </button>
     </div>
   );
+}
+
+export function toggleBlur(): void {
+    document.querySelector('.blur')!.classList.toggle('hidden')
 }

@@ -1,0 +1,59 @@
+@use 'globalValues' as gv;
+
+#new-card-modal {
+    @include gv.centralize();
+    @include gv.modal();
+}
+
+#close-card-modal {
+    @include gv.close-button();
+}
+
+#cards-container {
+    @include gv.flex();
+    position: relative;
+    width: 320px;
+    margin: auto;
+}
+
+#cards-container button:last-of-type {
+    margin-top: 10px;
+}
+
+.card {
+    @include gv.flex();
+    width: 300px;
+    background-color: #333;
+    color: #eee;
+    margin: auto;
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.card-pergunta {
+    font-size: 32px;
+}
+
+.deletar-card-btn {
+    @include gv.deletar-button();
+    position: relative;
+    right: 0;
+}
+
+form {
+    margin: auto;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.blur {
+    @include gv.blur();
+}
+
+.hidden {
+    display: none;
+}

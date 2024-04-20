@@ -5,3 +5,67 @@ $phone-width: 320px;
 $primary-color: #242424;
 $secondary-color: #ddd;
 $font-color: black;
+
+// SHAPES
+// Modals
+@mixin centralize {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin centralizeHorizontal {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@mixin blur {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background-color: black;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+    backdrop-filter: blur(15px);
+}
+
+@mixin modal {
+    background-color: $secondary-color;
+    border-radius: 15px;
+    padding: 10px;
+    width: calc($phone-width - 20px);
+    color: $primary-color;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+@mixin close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 24px;
+    width: 24px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+@mixin deletar-button {
+    font-size: 12px;
+    background-color: orangered;
+    border: none;
+    position: absolute;
+    bottom: 5px;
+}
+
+@mixin flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

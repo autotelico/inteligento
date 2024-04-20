@@ -24,8 +24,8 @@ export default function Card({card, projectId, handleDelete}: {
         <div className="card">
             <p className="card-pergunta">{card.pergunta}</p>
             {showAnswer && <p className="card-resposta">{card.resposta}</p>}
-            <button onClick={changeShowAnswer}>Ver resposta</button>
-            <button onClick={() => handleDelete(projectId, card)}>Deletar carta</button>
+            <button className='ver-resposta-btn' onClick={changeShowAnswer}>Ver resposta</button>
+            <button className='deletar-card-btn' onClick={() => handleDelete(projectId, card)}>Deletar carta</button>
         </div>
     )    
 }

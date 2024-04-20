@@ -34,20 +34,27 @@ export default function Home() {
 
   // Project-related functions
   const updateLocalStorage = (projArray: Project[]): void => {
-    localStorage.setItem('storedProjects', JSON.stringify(projArray))
-  }
+    localStorage.setItem("storedProjects", JSON.stringify(projArray));
+  };
 
   const addNewProject = (newProject: Project): void => {
     const newProjectList = [...projects, newProject];
     setProjects(newProjectList);
-    addToLocalStorage(newProject)
+    addToLocalStorage(newProject);
   };
 
   const removeProject = (projectToDelete: Project): void => {
-    const filteredProjects = projects.filter(project => project.id !== projectToDelete.id)
-    setProjects(filteredProjects)
-    updateLocalStorage([...filteredProjects]) 
-  }
+    const question = confirm(
+      "Tem certeza de que quer deletar o projeto? \nIsso vai deletar todos os cartões."
+    );
+    if (question) {
+      const filteredProjects = projects.filter(
+        (project) => project.id !== projectToDelete.id
+      );
+      setProjects(filteredProjects);
+      updateLocalStorage([...filteredProjects]);
+    }
+  };
 
   // I'll probably remove this
 
@@ -68,7 +75,6 @@ export default function Home() {
   //   allInputFields.forEach((input) => (input.value = ""));
   // }
 
-
   // function removeCard(cardToRemove: CardData): void {
   //   const cardsFiltrados = cards.filter((card) => card.id !== cardToRemove.id);
   //   console.log("card deletado");
@@ -84,7 +90,7 @@ export default function Home() {
       if (question) {
         setCards([]);
         localStorage.removeItem("storedProjects");
-        setProjects([])
+        setProjects([]);
       }
     } else {
       alert("Não há projetos para deletar.");
@@ -94,13 +100,20 @@ export default function Home() {
   // Update localStorage
   function addToLocalStorage(newProject: Project): void {
     // if newProject doesn't already exist:
-    const newProjectExists = projects.some(project => project.id === newProject.id)
+    const newProjectExists = projects.some(
+      (project) => project.id === newProject.id
+    );
     if (!newProjectExists) {
-      localStorage.setItem("storedProjects", JSON.stringify([...projects, newProject]));
+      localStorage.setItem(
+        "storedProjects",
+        JSON.stringify([...projects, newProject])
+      );
     } else {
-      const filteredProjects = projects.filter(project => project.id !== newProject.id)
-      filteredProjects.push(newProject)
-      localStorage.setItem('storedProjects', JSON.stringify(filteredProjects))
+      const filteredProjects = projects.filter(
+        (project) => project.id !== newProject.id
+      );
+      filteredProjects.push(newProject);
+      localStorage.setItem("storedProjects", JSON.stringify(filteredProjects));
     }
   }
 
@@ -114,7 +127,7 @@ export default function Home() {
           handleDelete={removeProject}
         />
       </div>
-      <button id='deletar-tudo-btn' type="button" onClick={deleteAllProjects}>
+      <button id="deletar-tudo-btn" type="button" onClick={deleteAllProjects}>
         DELETAR TUDO
       </button>
     </>

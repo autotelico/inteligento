@@ -1,0 +1,94 @@
+#new-card-modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ddd;
+  border-radius: 15px;
+  padding: 10px;
+  width: 300px;
+  color: #242424;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#close-card-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 24px;
+  width: 24px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+#cards-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 320px;
+  margin: auto;
+}
+
+#cards-container button:last-of-type {
+  margin-top: 10px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  background-color: #333;
+  color: #eee;
+  margin: auto;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.card-pergunta {
+  font-size: 32px;
+}
+
+.deletar-card-btn {
+  font-size: 12px;
+  background-color: orangered;
+  border: none;
+  position: absolute;
+  bottom: 5px;
+  position: relative;
+  right: 0;
+}
+
+form {
+  margin: auto;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.blur {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background-color: black;
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+  -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
+}
+
+.hidden {
+  display: none;
+}/*# sourceMappingURL=cards.css.map */

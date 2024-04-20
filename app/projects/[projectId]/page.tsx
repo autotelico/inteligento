@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { toggleBlur } from "@/app/components/project/ProjectList";
 
 export default function ProjectId({ params }: { params: any }): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -22,7 +23,12 @@ export default function ProjectId({ params }: { params: any }): JSX.Element {
 
   console.log("selectedProject:", selectedProject);
 
+  function toggleBlur(): void {
+    document.querySelector(".blur")!.classList.toggle("hidden");
+  }
+
   useEffect(() => {
+    // set value to currentCards
     if (!currentCards.length) {
       setCurrentCards(selectedProject.cards);
     }
@@ -93,27 +99,38 @@ export default function ProjectId({ params }: { params: any }): JSX.Element {
     targetProjectId: string,
     cardToDelete: CardData
   ): void {
-    // Finds the localStorage project we want to delete, then updates its cards
-    const foundProject: Project = storedProjects.find(
-      (storedProj) => storedProj.id === targetProjectId
-    )!;
-    const updatedCards: CardData[] = foundProject.cards.filter(
-      (card) => card.id !== cardToDelete.id
-    );
-    foundProject.cards = updatedCards;
-    const newProjectArray = storedProjects.filter(
-      (storedProj) => storedProj.id !== targetProjectId
-    );
-    setCurrentCards(foundProject.cards);
-    updateLocalStorage([...newProjectArray, foundProject]);
+    // Confirm if the user wants to delete
+    const question = confirm("Tem certeza de que quer deletar esta carta?");
+    if (question) {
+      // Finds the localStorage project we want to delete, then updates its cards
+      const foundProject: Project = storedProjects.find(
+        (storedProj) => storedProj.id === targetProjectId
+      )!;
+      const updatedCards: CardData[] = foundProject.cards.filter(
+        (card) => card.id !== cardToDelete.id
+      );
+      foundProject.cards = updatedCards;
+      const newProjectArray = storedProjects.filter(
+        (storedProj) => storedProj.id !== targetProjectId
+      );
+      setCurrentCards(foundProject.cards);
+      updateLocalStorage([...newProjectArray, foundProject]);
+    }
   }
 
+  const handleShowModal = (): void => {
+    setShowModal(!showModal);
+    toggleBlur();
+  };
+
   return (
-    <>
+    <div id="cards-container">
+      <div className="blur hidden"></div>
       {showModal && (
         <CreateCardModal
           handleSubmit={addCardToProject}
           setCards={setCurrentCards}
+          toggleShowModal={handleShowModal}
         />
       )}
       <h1>Project ID page: {searchParams.get("name")}</h1>
@@ -127,14 +144,14 @@ export default function ProjectId({ params }: { params: any }): JSX.Element {
           />
         ))
       ) : (
-        <p>No cards created yet.</p>
+        <p>Nenhum cartão para mostrar ainda.</p>
       )}
-      <button onClick={() => setShowModal(!showModal)}>
+      <button onClick={handleShowModal}>
         {showModal ? "Cancelar" : "Criar Novo Cartão"}
       </button>
       <Link href="/">
         <p>Voltar</p>
       </Link>
-    </>
+    </div>
   );
 }

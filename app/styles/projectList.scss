@@ -1,25 +1,7 @@
-@use './globalValues';
+@use 'globalValues' as gv;
 
-@mixin centralize {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-@mixin centralizeHorizontal {
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#blur {
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    background-color: black;
-    top: 0;
-    left: 0;
-    opacity: 0.6;
-    backdrop-filter: blur(15px);
+.blur {
+    @include gv.blur;
 }
 
 .hidden {
@@ -43,29 +25,12 @@
 }
 
 #new-project-modal {
-    @include centralize();
-    background-color: globalValues.$secondary-color;
-    border-radius: 15px;
-    padding: 10px;
-    width: calc(globalValues.$phone-width - 20px);
-    color: globalValues.$primary-color;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
+    @include gv.centralize();
+    @include gv.modal();
 }
 
 #close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 24px;
-    width: 24px;
-    border-radius: 25px;
-    cursor: pointer;
+    @include gv.close-button();
 }
 
 #project-name {
@@ -102,7 +67,7 @@
 
 .project a {
     text-decoration: none;
-    color: globalValues.$primary-color;
+    color: gv.$primary-color;
     background-color: rgba(155, 155, 155, 0.4);
     padding: 5px;
     border-radius: 15px;
@@ -127,7 +92,7 @@
 }
 
 #criar-novo-projeto-btn {
-    @include centralizeHorizontal();
+    @include gv.centralizeHorizontal();
     position: relative;
 }
 
@@ -136,7 +101,7 @@
 }
 
 #deletar-tudo-btn {
-    @include centralizeHorizontal();
+    @include gv.centralizeHorizontal();
     position: absolute;
     bottom: -75px;
     background-color: black;
