@@ -12,6 +12,7 @@ export default function Home() {
   useEffect(() => {
     // Get project ids form localStorage to reference cards
     // to list out
+
     if (localStorage.getItem("storedProjects")) {
       const storedProjects = JSON.parse(
         localStorage.getItem("storedProjects")!
