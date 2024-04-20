@@ -20,6 +20,8 @@ header {
 button {
   border-radius: 10px;
   padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.4s;
 }
 
 input {

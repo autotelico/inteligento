@@ -6,6 +6,8 @@
   top: 0;
   left: 0;
   opacity: 0.6;
+  -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
 }
 
 .hidden {
@@ -109,10 +111,18 @@
   bottom: 5px;
 }
 
+.project .deletar-projeto-btn:hover {
+  background-color: rgb(209, 58, 3);
+}
+
 #criar-novo-projeto-btn {
-  position: relative;
   left: 50%;
   transform: translateX(-50%);
+  position: relative;
+}
+
+#criar-novo-projeto-btn:hover {
+  background-color: rgba(235, 230, 230, 0.87);
 }
 
 #deletar-tudo-btn {
