@@ -11,6 +11,20 @@
     transform: translateX(-50%);
 }
 
+#blur {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background-color: black;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+}
+
+.hidden {
+    display: none;
+}
+
 #main-container {
     position: relative;
     margin: auto;
@@ -28,13 +42,13 @@
 }
 
 #new-project-modal {
+    @include centralize();
     background-color: globalValues.$secondary-color;
     border-radius: 15px;
     padding: 10px;
     width: calc(globalValues.$phone-width - 20px);
     color: globalValues.$primary-color;
-    position: absolute;
-    @include centralize();
+    position: fixed;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -99,6 +113,7 @@
 }
 
 .project .deletar-projeto-btn {
+    cursor: pointer;
     font-size: 12px;
     background-color: orangered;
     border: none;
