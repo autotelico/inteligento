@@ -29,9 +29,9 @@ export default function ProjectList({
   };
 
   return (
-    <>
+    <div id="project-container">
       {/* placeholder */}
-      <h1>Project List</h1>
+      <h2>Project List</h2>
       {showModal && (
         <NewProjectModal
           handleShow={toggleShowModal}
@@ -40,23 +40,26 @@ export default function ProjectList({
       )}
       {projects.map((project) => {
         return (
-          <div
-            key={project.id}
-            className="project"
-          >
-            <Link
-              href={{
-                pathname: `projects/${project.name}`,
-                query: { id: project.id, name: project.name },
-              }}
-            >
-              {project.name}
-            </Link>
-            <button onClick={() => handleDelete(project)}>Delete Project</button>
+          <div key={project.id} className="project">
+            <p className="project-title" title='Ver detalhes'>
+              <Link
+                href={{
+                  pathname: `projects/${project.name}`,
+                  query: { id: project.id, name: project.name },
+                }}
+              >
+                {project.name}
+              </Link>
+            </p>
+            <button className='deletar-projeto-btn' onClick={() => handleDelete(project)}>
+              Deletar
+            </button>
           </div>
         );
       })}
-      <button onClick={toggleShowModal}>{showModal ? 'Cancelar' : 'Criar Novo Projeto'}</button>
-    </>
+      <button id="criar-novo-projeto-btn" onClick={toggleShowModal}>
+        {showModal ? "Cancelar" : "Criar Novo Projeto"}
+      </button>
+    </div>
   );
 }

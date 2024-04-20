@@ -1,5 +1,32 @@
 @use './globalValues';
 
+@mixin centralize {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin centralizeHorizontal {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#main-container {
+    position: relative;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+}
+
+// target everything, except h1
+#project-container:not(#project-container:first-child) {
+    border: 2px solid blue;
+    text-decoration: none;
+}
+
 #new-project-modal {
     background-color: globalValues.$secondary-color;
     border-radius: 15px;
@@ -7,14 +34,13 @@
     width: calc(globalValues.$phone-width - 20px);
     color: globalValues.$primary-color;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include centralize();
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
 #close-modal {
@@ -36,4 +62,60 @@
 
 #project-name:focus {
     outline: 2px solid darkgray;
+}
+
+.project {
+    position: relative;
+    border-radius: 15px;
+    background-color: lightgray;
+    padding: 15px;
+    height: 100px;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+
+.project .project-title {
+    font-size: 32px;
+    position: absolute;
+    top: 10px;
+}
+
+.project a {
+    text-decoration: none;
+    color: globalValues.$primary-color;
+    background-color: rgba(155, 155, 155, 0.4);
+    padding: 5px;
+    border-radius: 15px;
+    transition: background-color 0.4s;
+}
+
+.project a:hover {
+    background-color: darkgray;
+}
+
+.project .deletar-projeto-btn {
+    font-size: 12px;
+    background-color: orangered;
+    border: none;
+    position: absolute;
+    bottom: 5px;
+}
+
+#criar-novo-projeto-btn {
+    position: relative;
+    @include centralizeHorizontal();
+}
+
+#deletar-tudo-btn {
+    @include centralizeHorizontal();
+    position: absolute;
+    bottom: -75px;
+    background-color: black;
+    color: #eee;
+    height: 24px;
 }

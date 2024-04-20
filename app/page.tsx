@@ -76,7 +76,7 @@ export default function Home() {
   //   setCards(cardsFiltrados);
   // }
 
-  function deleteAllCards(): void {
+  function deleteAllProjects(): void {
     if (localStorage.getItem("storedProjects")) {
       const question = confirm(
         "Tem certeza de que quer deletar todo os projetos? \nISSO IRÁ DELETAR TUDO."
@@ -114,7 +114,7 @@ export default function Home() {
           handleDelete={removeProject}
         />
       </div>
-      <button type="button" onClick={deleteAllCards}>
+      <button id='deletar-tudo-btn' type="button" onClick={deleteAllProjects}>
         DELETAR TUDO
       </button>
     </>

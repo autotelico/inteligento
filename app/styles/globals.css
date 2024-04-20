@@ -1,7 +1,25 @@
+:root {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   background-color: #242424;
   color: #ddd;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: darkgray;
+  color: #242424;
+  border-bottom: 2px solid gray;
+}
+
+button {
+  border-radius: 10px;
+  padding: 5px 10px;
 }
 
 input {

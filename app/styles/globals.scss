@@ -1,9 +1,27 @@
 @use './globalValues';
 
+:root {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     background-color: globalValues.$primary-color;
     color: globalValues.$secondary-color;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgray;
+    color: globalValues.$primary-color;
+    border-bottom: 2px solid gray;
+}
+
+button {
+    border-radius: 10px;
+    padding: 5px 10px;
 }
 
 input {
