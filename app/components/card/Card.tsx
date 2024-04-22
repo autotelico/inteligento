@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import '../../styles/globals.css'
-import { Project } from '../project/ProjectList';
 
 export interface CardData {
     id: string;
@@ -24,7 +23,7 @@ export default function Card({card, projectId, handleDelete}: {
         <div className="card">
             <p className="card-pergunta">{card.pergunta}</p>
             {showAnswer && <p className="card-resposta">{card.resposta}</p>}
-            <button className='ver-resposta-btn' onClick={changeShowAnswer}>Ver resposta</button>
+            <button className='ver-resposta-btn' onClick={changeShowAnswer}>{showAnswer ? 'Ocultar resposta' : 'Ver resposta'}</button>
             <button className='deletar-card-btn' onClick={() => handleDelete(projectId, card)}>Deletar carta</button>
         </div>
     )    
